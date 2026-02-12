@@ -21,8 +21,8 @@ layers:
   - H
   - J
   - K
-  - {t: L, h: SCROLL}
-  - ''''
+  - L
+  - {t: '''', h: SCROLL}
   - {t: Z, h: LEFT SHIFT}
   - X
   - C
