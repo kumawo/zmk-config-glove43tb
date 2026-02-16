@@ -76,6 +76,6 @@
         y-input-code = <INPUT_REL_X>;
         invert-y;     // マウス操作のY軸を反転
         invert-x;     // マウス操作のX軸を反転
-        cpi = <1200>;  // マウス感度
+        cpi = <900>;  // マウス感度
     };
 };
