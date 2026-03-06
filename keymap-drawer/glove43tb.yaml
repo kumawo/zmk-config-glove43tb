@@ -35,14 +35,14 @@ layers:
   - ','
   - .
   - /
-  - B
-  - LEFT WIN
+  - ESC
   - LEFT ALT
+  - LEFT WIN
   - {t: '&to_layer_0 LANG_ZENKAKUHANKAKU', h: '6'}
   - {t: SPACE, h: FUNCTION}
   - {t: '&to_layer_0 LANG_HIRAGANA', h: SCROLL}
   - BACKSPACE
-  - {t: ENTER, h: FUNCTION}
+  - {t: ENTER, h: NUM}
   - DEL
   FUNCTION:
   - {t: ▽, type: trans}
@@ -130,7 +130,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - {type: held}
   - '|'
   ARROW:
   - ESCAPE
