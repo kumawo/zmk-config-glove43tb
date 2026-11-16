@@ -267,6 +267,17 @@
   | 🔵 | Bluetooth接続中 |
   | 🔴 | Bluetooth未接続 |
 
+### Windows / Mac の自動切替
+
+- `Layer: 6`（左IMEキー長押し）の`Y U I O P`で接続先（BTプロファイル0〜4）を切り替えると、接続先に合わせて Mac 用レイヤー（7〜9）が自動で有効/無効になる
+  - 初期設定: `Y U I`（プロファイル0〜2）= Windows、`O P`（プロファイル3,4）= Mac
+  - Mac 用レイヤーでは`Ctrl+X/C/V`が`Cmd+X/C/V`、左下`Esc`長押しが`Cmd`、`Win`キーが`Ctrl`、スクショキーが`Cmd+Ctrl+Shift+4`、無変換コンボが`英数`になる
+- Mac 扱いにするプロファイルを変更したいときは以下のファイルを修正すること
+  - [boards/shields/glove43tb/glove43tb_R.conf](boards/shields/glove43tb/glove43tb_R.conf)
+  - `CONFIG_GLOVE43TB_OS_LAYER_BLE_PROFILES`をビットマスクで指定する（例: プロファイル1と4なら`0x12`）
+  - USB接続時も Mac 扱いにする場合は`CONFIG_GLOVE43TB_OS_LAYER_USB=y`
+- 処理本体: [src/os_layer.c](src/os_layer.c)
+
 ### ロータリーエンコーダを取り外してキースイッチを取り付け可能
 
 - ロータリーエンコーダをハンダ付けしている箇所には、キーソケット（CherryMX, Choc V1/V2）もハンダ付け済みです

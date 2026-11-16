@@ -1,0 +1,18 @@
+config GLOVE43TB_OS_LAYER
+    bool "Activate an OS (macOS) layer depending on the selected endpoint"
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+
+if GLOVE43TB_OS_LAYER
+
+config GLOVE43TB_OS_LAYER_INDEX
+    int "Index of the layer to activate"
+    default 7
+
+config GLOVE43TB_OS_LAYER_BLE_PROFILES
+    hex "Bitmask of BLE profiles (BIT(n) = profile n) that activate the layer"
+    default 0x18
+
+config GLOVE43TB_OS_LAYER_USB
+    bool "Activate the layer while the USB endpoint is selected"
+
+endif

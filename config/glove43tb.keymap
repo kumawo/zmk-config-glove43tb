@@ -48,13 +48,13 @@
         tab {
             bindings = <&kp TAB>;
             key-positions = <11 12>;
-            layers = <0 4>;
+            layers = <0 4 7 8>;
         };
 
         shift_tab {
             bindings = <&kp LS(TAB)>;
             key-positions = <12 13>;
-            layers = <0 4>;
+            layers = <0 4 7 8>;
         };
 
         muhennkann {
@@ -63,16 +63,22 @@
             layers = <0 4>;
         };
 
+        muhennkann_mac {
+            bindings = <&to_layer_0 LANG2>;
+            key-positions = <11 10>;
+            layers = <7 8>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
-            layers = <0 4>;
+            layers = <0 4 7 8>;
         };
 
         eq {
             bindings = <&kp EQUAL>;
             key-positions = <24 25>;
-            layers = <0 4>;
+            layers = <0 4 7 8>;
         };
     };
 
@@ -82,6 +88,31 @@
         nav {
             if-layers = <1 2>;
             then-layer = <3>;
+        };
+
+        mac_mouse {
+            if-layers = <4 7>;
+            then-layer = <8>;
+        };
+
+        mac_edit_function {
+            if-layers = <1 7>;
+            then-layer = <9>;
+        };
+
+        mac_edit_num {
+            if-layers = <2 7>;
+            then-layer = <9>;
+        };
+
+        mac_edit_scroll {
+            if-layers = <5 7>;
+            then-layer = <9>;
+        };
+
+        mac_edit_bt {
+            if-layers = <6 7>;
+            then-layer = <9>;
         };
     };
 
@@ -194,8 +225,36 @@
             bindings = <
 &trans          &trans        &trans        &trans        &trans                          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
 &trans          &trans        &trans        &trans        &trans    &trans        &trans  &out OUT_TOG  &trans        &trans        &trans        &trans
-&trans          &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &ind_con  &ind_bat      &trans  &trans        &trans        &trans        &trans        &bt BT_CLR
-&bt BT_CLR_ALL  &bootloader   &trans        &trans        &trans    &trans        &trans  &trans                                                  &bootloader
+&bt BT_CLR_ALL  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &ind_con  &ind_bat      &trans  &trans        &trans        &trans        &trans        &bt BT_CLR
+&trans          &bootloader   &trans        &trans        &trans    &trans        &trans  &trans                                                  &bootloader
+            >;
+        };
+
+        // 7-9: Mac 用 (BT プロファイル 3,4 接続時に src/os_layer.c が MAC を自動で有効化)
+        MAC {
+            bindings = <
+&trans         &trans  &trans        &trans  &trans                                           &trans  &trans  &trans  &trans  &trans
+&trans         &trans  &trans        &trans  &trans  &kp LG(LC(LS(NUMBER_4)))       &trans  &trans  &trans  &trans  &trans  &trans
+&trans         &trans  &trans        &trans  &trans  &trans                         &trans  &trans  &trans  &trans  &trans  &trans
+&mt LGUI ESC   &trans  &kp LCTRL     &trans  &trans  &trans                         &trans  &trans                          &trans
+            >;
+        };
+
+        MAC_MOUSE {
+            bindings = <
+&trans  &trans  &trans  &trans     &trans                            &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &kp LG(X)  &kp LG(C)  &kp LG(V)      &trans  &trans                          &trans
+            >;
+        };
+
+        MAC_EDIT {
+            bindings = <
+&trans  &trans  &trans  &trans     &trans                            &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &kp LG(X)  &kp LG(C)  &kp LG(V)      &trans  &trans                          &trans
             >;
         };
     };
