@@ -100,9 +100,9 @@
             then-layer = <9>;
         };
 
-        mac_edit_num {
+        mac_num {
             if-layers = <2 7>;
-            then-layer = <9>;
+            then-layer = <10>;
         };
 
         mac_edit_scroll {
@@ -230,7 +230,7 @@
             >;
         };
 
-        // 7-9: Mac 用 (BT プロファイル 3,4 接続時に src/os_layer.c が MAC を自動で有効化)
+        // 7-10: Mac 用 (BT プロファイル 3,4 接続時に src/os_layer.c が MAC を自動で有効化)
         MAC {
             bindings = <
 &trans         &trans  &trans        &trans  &trans                                           &trans  &trans  &trans  &trans  &trans
@@ -255,6 +255,16 @@
 &trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans     &trans     &trans         &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &kp LG(X)  &kp LG(C)  &kp LG(V)      &trans  &trans                          &trans
+            >;
+        };
+
+        // MAC より上に置くため、NUM の Win 位置(.) と内側キーをここで戻す
+        MAC_NUM {
+            bindings = <
+&trans  &trans        &trans   &trans     &trans                                       &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &trans   &trans     &trans     &kp LC(LA(KP_NUMBER_0))   &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &trans   &trans     &trans     &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &kp DOT  &kp LG(X)  &kp LG(C)  &kp LG(V)                 &trans  &trans                          &trans
             >;
         };
     };
