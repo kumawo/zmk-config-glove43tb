@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-description: Drops small movements after idle and smoothly lowers the gain of slow movements
+description: Drops small movements after idle and applies a speed-dependent gain (S-curve)
 
 compatible: "zmk,input-processor-touch-filter"
 
@@ -13,14 +13,15 @@ properties:
   start-threshold:
     type: int
     default: 10
-  slow-gain-percent:
-    type: int
-    default: 60
   slow-speed:
     type: int
-    default: 3
-    description: Speed (counts per 16 ms) at or below which slow-gain-percent is applied
+    default: 2
+    description: Speed (counts per 8 ms) at or below which the preset's minimum gain is applied
   full-speed:
     type: int
-    default: 16
-    description: Speed (counts per 16 ms) at or above which the gain is 100%
+    default: 12
+    description: Speed (counts per 8 ms) at or above which the gain is 100%
+  min-gain-percents:
+    type: array
+    required: true
+    description: Minimum gain (%) for each preset selectable with the pointer preset behavior

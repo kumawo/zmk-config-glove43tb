@@ -173,6 +173,13 @@
             #sensor-binding-cells = <0>;
             bindings = <&bt_step 0>, <&bt_step 1>;
         };
+
+        // トラックボールの低速時の倍率プリセット (glove43tb_R.overlay の min-gain-percents)
+        ptr_preset: ptr_preset {
+            compatible = "zmk,behavior-pointer-preset";
+            display-name = "Pointer Preset";
+            #binding-cells = <1>;
+        };
     };
 
     keymap {
@@ -238,7 +245,7 @@
 
         layer_6 {
             bindings = <
-&trans          &trans        &trans        &trans        &trans                          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&ptr_preset 0   &ptr_preset 1 &ptr_preset 2 &trans        &trans                          &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
 &trans          &trans        &trans        &trans        &trans    &trans        &trans  &out OUT_TOG  &trans        &trans        &trans        &trans
 &bt BT_CLR_ALL  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &ind_con  &ind_bat      &trans  &trans        &trans        &trans        &trans        &bt BT_CLR
 &trans          &bootloader   &trans        &trans        &trans    &trans        &trans  &trans                                                  &bootloader

@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MIT
+
+description: Select the trackball pointer preset of the touch filter input processor
+
+compatible: "zmk,behavior-pointer-preset"
+
+include: one_param.yaml
