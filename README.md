@@ -325,19 +325,26 @@
 
 - トラックボールのマウス感度（CPI: Counts Per Inch）を変更したいときは以下のファイルを修正すること
   - [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)
-- `cpi = <400>;`の値を変更する
+- `cpi = <800>;`の値を変更する
   - 値を大きくするほど感度が上がります
-  - 例: `cpi = <800>;` にすると感度が2倍になります
+  - 設定できる値は200〜3200の200刻みです（それ以外の値は200の倍数に切り捨てられます）
+  - 例: `cpi = <1600>;` にすると感度が2倍になります
 
 ### トラックボールのブレ対策
 
-- 軽く触れただけでポインタが動く（ブレる）ときは以下のファイルの`zip_touch_filter`を調整すること
-  - [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)
-- `start-threshold`: 止まっている状態から、この量だけ動くまでポインタを動かさない（大きくするほどブレに強くなるが、動き出しが鈍くなる）
-  - ここで無視された動きではオートマウスレイヤーも有効化されない
-- `idle-ms`: この時間（ミリ秒）トラックボールが動かなければ「止まっている」とみなす
-- `slow-max` / `slow-divisor`: 1回の移動量が`slow-max`以下のとても遅い動きを`slow-divisor`で割って減速する（`slow-divisor = <1>;`で無効）
+- ブレ対策として以下の3つを設定済み
+  1. 移動量の送信間隔: [boards/shields/glove43tb/glove43tb_R.conf](boards/shields/glove43tb/glove43tb_R.conf)の`CONFIG_PMW3610_REPORT_INTERVAL_MIN=12`
+     - 0（毎回送信）だとBluetoothの送信間隔に収まらない分がまとめて届き、動かしている最中にカクつく・ブレる
+     - USB接続だけで使う場合は`8`にするとより滑らかになる
+  2. 触れただけのブレ対策: [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)の`zip_touch_filter`
+     - `start-threshold`: 止まっている状態から、この量だけ動くまでポインタを動かさない（大きくするほどブレに強くなるが、動き出しが鈍くなる）
+       - ここで無視された動きではオートマウスレイヤーも有効化されない
+     - `idle-ms`: この時間（ミリ秒）トラックボールが動かなければ「止まっている」とみなす
+  3. ゆっくり動かしているときのブレ対策: 同じく`zip_touch_filter`
+     - `slow-gain-percent`: ゆっくり動かしたときの移動量の倍率（%）。小さくするほど細かいブレが減るが、細かい操作が遅くなる（`100`で無効）
+     - `slow-speed` / `full-speed`: 倍率を`slow-gain-percent`から100%まで変化させる速さの範囲（カウント/16ms）。間はなめらかに変化し、縦横に同じ倍率をかけるので斜めの動きの向きも変わらない
 - 速く動かしたときの速度は変わらない（速度を変えたいときは`cpi`を変更する）
+- OS側のマウスの加速設定（Windowsの「ポインターの精度を高める」、Macの「軌跡の速さ」）とも組み合わさるため、遅く感じる場合は`slow-gain-percent`を上げる
 
 ### マウススクロールの方向変更
 

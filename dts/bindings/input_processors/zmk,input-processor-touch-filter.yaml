@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-description: Drops small movements after idle and damps very slow movements to reduce jitter
+description: Drops small movements after idle and smoothly lowers the gain of slow movements
 
 compatible: "zmk,input-processor-touch-filter"
 
@@ -13,9 +13,14 @@ properties:
   start-threshold:
     type: int
     default: 10
-  slow-max:
+  slow-gain-percent:
     type: int
-    default: 2
-  slow-divisor:
+    default: 60
+  slow-speed:
     type: int
-    default: 2
+    default: 3
+    description: Speed (counts per 16 ms) at or below which slow-gain-percent is applied
+  full-speed:
+    type: int
+    default: 16
+    description: Speed (counts per 16 ms) at or above which the gain is 100%

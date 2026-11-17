@@ -18,14 +18,15 @@
 };
 
 / {
-    // トラックボールに軽く触れたときのブレ対策 (src/pointing/input_processor_touch_filter.c)
+    // トラックボールのブレ対策 (src/pointing/input_processor_touch_filter.c)
     zip_touch_filter: zip_touch_filter {
         compatible = "zmk,input-processor-touch-filter";
         #input-processor-cells = <0>;
-        idle-ms = <150>;          // この時間(ms)動きがなければ「停止中」とみなす
-        start-threshold = <10>;   // 停止中からの動き出しは、この量(カウント)動くまで無視する(大きいほどブレに強い)
-        slow-max = <2>;           // 1回の移動量がこれ以下のとても遅い動きは…
-        slow-divisor = <2>;       // …この値で割って減速する(1で無効)
+        idle-ms = <150>;            // この時間(ms)動きがなければ「止まっている」とみなす
+        start-threshold = <10>;     // 止まっている状態からは、この量(カウント)動くまで無視する(触れただけのブレ対策)
+        slow-gain-percent = <60>;   // ゆっくり動かしたときの移動量の倍率(%)。小さいほど動作中の細かいブレが減る(100で無効)
+        slow-speed = <3>;           // この速さ(カウント/16ms)以下で slow-gain-percent を適用し…
+        full-speed = <16>;          // …この速さ以上で100%に戻す(間はなめらかに変化。速い動きの速度は変わらない)
     };
 
     trackball_listener {
@@ -93,6 +94,6 @@
         y-input-code = <INPUT_REL_X>;
         invert-y;     // マウス操作のY軸を反転
         invert-x;     // マウス操作のX軸を反転
-        cpi = <900>;  // マウス感度
+        cpi = <800>;  // マウス感度 (200刻み。以前の900も実際は800として動作していた)
     };
 };
