@@ -158,6 +158,21 @@
 
             tap-ms = <20>;
         };
+
+        // 1クリックで2回トリガーされても接続先が1つだけ進むよう、400ms以内の連続切替を無視する
+        bt_step: bt_step {
+            compatible = "zmk,behavior-bt-step";
+            display-name = "BT Step";
+            #binding-cells = <1>;
+            cooldown-ms = <400>;
+        };
+
+        // 音量を上げる方向(FUNCTION の C_VOLUME_UP と同じ向き)に回すと次の接続先
+        encoder_bt_step: encoder_bt_step {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&bt_step 0>, <&bt_step 1>;
+        };
     };
 
     keymap {
@@ -228,6 +243,8 @@
 &bt BT_CLR_ALL  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &ind_con  &ind_bat      &trans  &trans        &trans        &trans        &trans        &bt BT_CLR
 &trans          &bootloader   &trans        &trans        &trans    &trans        &trans  &trans                                                  &bootloader
             >;
+
+            sensor-bindings = <&encoder_bt_step>;
         };
 
         // 7-10: Mac 用 (BT プロファイル 3,4 接続時に src/os_layer.c が MAC を自動で有効化)

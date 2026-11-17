@@ -273,6 +273,14 @@
   | 🔵 | Bluetooth接続中 |
   | 🔴 | Bluetooth未接続 |
 
+### ロータリーエンコーダで接続先を切り替える
+
+- `Layer: 6`（左IMEキー長押し）のままロータリーエンコーダを回すと、接続先（BTプロファイル0〜4）を順番に切り替えられる
+  - 音量を上げる方向に回すと次（`Y → U → I → O → P → Y`）、逆方向で前に戻る
+  - 1クリックで2つ進まないよう、400ms以内の連続切替は無視する（[config/glove43tb.keymap](config/glove43tb.keymap)の`cooldown-ms`で調整可能）
+  - 切り替えると右側のLEDが接続状況の色で点滅する
+- 処理本体: [src/behaviors/behavior_bt_step.c](src/behaviors/behavior_bt_step.c)
+
 ### Windows / Mac の自動切替
 
 - `Layer: 6`（左IMEキー長押し）の`Y U I O P`で接続先（BTプロファイル0〜4）を切り替えると、接続先に合わせて Mac 用レイヤー（7〜10）が自動で有効/無効になる

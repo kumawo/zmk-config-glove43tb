@@ -16,3 +16,9 @@ config GLOVE43TB_OS_LAYER_USB
     bool "Activate the layer while the USB endpoint is selected"
 
 endif
+
+config ZMK_BEHAVIOR_BT_STEP
+    bool
+    default y
+    depends on DT_HAS_ZMK_BEHAVIOR_BT_STEP_ENABLED && ZMK_BLE
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
