@@ -329,6 +329,16 @@
   - 値を大きくするほど感度が上がります
   - 例: `cpi = <800>;` にすると感度が2倍になります
 
+### トラックボールのブレ対策
+
+- 軽く触れただけでポインタが動く（ブレる）ときは以下のファイルの`zip_touch_filter`を調整すること
+  - [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)
+- `start-threshold`: 止まっている状態から、この量だけ動くまでポインタを動かさない（大きくするほどブレに強くなるが、動き出しが鈍くなる）
+  - ここで無視された動きではオートマウスレイヤーも有効化されない
+- `idle-ms`: この時間（ミリ秒）トラックボールが動かなければ「止まっている」とみなす
+- `slow-max` / `slow-divisor`: 1回の移動量が`slow-max`以下のとても遅い動きを`slow-divisor`で割って減速する（`slow-divisor = <1>;`で無効）
+- 速く動かしたときの速度は変わらない（速度を変えたいときは`cpi`を変更する）
+
 ### マウススクロールの方向変更
 
 - トラックボールのスクロール方向を変更したいときは以下のファイルを修正すること
@@ -347,14 +357,14 @@
 
 - トラックボールを動かしたときに自動的にマウスレイヤーを有効化する機能を無効化したいときは以下のファイルを修正すること
   - [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)
-- `input-processors = <&zip_temp_layer 4 700>;`の行を削除またはコメントアウトする
+- `input-processors = <&zip_touch_filter &zip_temp_layer 4 700>;`の`&zip_temp_layer 4 700`を削除する
 
 ### オートマウスレイヤーのレイヤー変更
 
 - トラックボールを動かしたときに自動的に有効化されるレイヤーを変更したいときは以下のファイルを修正すること
   - [boards/shields/glove43tb/glove43tb_R.overlay](boards/shields/glove43tb/glove43tb_R.overlay)
-- `input-processors = <&zip_temp_layer 4 700>;`の`4`を変更する
-  - 例: レイヤー2に変更したい場合: `input-processors = <&zip_temp_layer 2 700>;`
+- `input-processors = <&zip_touch_filter &zip_temp_layer 4 700>;`の`4`を変更する
+  - 例: レイヤー2に変更したい場合: `input-processors = <&zip_touch_filter &zip_temp_layer 2 700>;`
   - 2つ目の数値（`700`）は、レイヤーが有効化される時間（ミリ秒）です
 
 ### スクロール感度の変更方法

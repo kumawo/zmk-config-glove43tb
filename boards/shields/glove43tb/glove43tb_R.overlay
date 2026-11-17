@@ -18,11 +18,21 @@
 };
 
 / {
+    // トラックボールに軽く触れたときのブレ対策 (src/pointing/input_processor_touch_filter.c)
+    zip_touch_filter: zip_touch_filter {
+        compatible = "zmk,input-processor-touch-filter";
+        #input-processor-cells = <0>;
+        idle-ms = <150>;          // この時間(ms)動きがなければ「停止中」とみなす
+        start-threshold = <10>;   // 停止中からの動き出しは、この量(カウント)動くまで無視する(大きいほどブレに強い)
+        slow-max = <2>;           // 1回の移動量がこれ以下のとても遅い動きは…
+        slow-divisor = <2>;       // …この値で割って減速する(1で無効)
+    };
+
     trackball_listener {
         status = "okay";
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_temp_layer 4 700>;            // オートマウスレイヤー（AML）: トラックボール動作時に自動的にレイヤー4を有効化（700ms）
+        input-processors = <&zip_touch_filter &zip_temp_layer 4 700>;  // ブレ対策 → オートマウスレイヤー（AML）: トラックボール動作時に自動的にレイヤー4を有効化（700ms）
 
         scroller {
             layers = <5>;                                      // スクロールレイヤー

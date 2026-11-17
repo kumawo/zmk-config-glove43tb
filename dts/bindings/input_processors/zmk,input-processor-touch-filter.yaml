@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MIT
+
+description: Drops small movements after idle and damps very slow movements to reduce jitter
+
+compatible: "zmk,input-processor-touch-filter"
+
+include: ip_zero_param.yaml
+
+properties:
+  idle-ms:
+    type: int
+    default: 150
+  start-threshold:
+    type: int
+    default: 10
+  slow-max:
+    type: int
+    default: 2
+  slow-divisor:
+    type: int
+    default: 2

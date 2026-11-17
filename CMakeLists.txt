@@ -1,2 +1,3 @@
 target_sources_ifdef(CONFIG_GLOVE43TB_OS_LAYER app PRIVATE src/os_layer.c)
 target_sources_ifdef(CONFIG_ZMK_BEHAVIOR_BT_STEP app PRIVATE src/behaviors/behavior_bt_step.c)
+target_sources_ifdef(CONFIG_ZMK_INPUT_PROCESSOR_TOUCH_FILTER app PRIVATE src/pointing/input_processor_touch_filter.c)
